@@ -1,0 +1,13 @@
+@font-face {
+    font-family: "Montserrat Thin";
+    src: url("Montserrat-VariableFont_wght.eot"); /* IE9 */
+    src: url("Montserrat-VariableFont_wght.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+    url("Montserrat-VariableFont_wght.woff2") format("woff2"), /* chrome 36+, firefox 39+,iOS 10+, Android 67+ */
+    url("Montserrat-VariableFont_wght.woff") format("woff"), /* chrome, firefox */
+    url("Montserrat-VariableFont_wght.ttf") format("truetype"), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+    url("Montserrat-VariableFont_wght.svg#Montserrat Thin") format("svg"); /* iOS 4.1- */
+    font-style: normal;
+    font-weight: normal;
+}
+
+

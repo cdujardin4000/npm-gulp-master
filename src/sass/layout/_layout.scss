@@ -1,0 +1,654 @@
+
+.wrap{
+    max-width: $maxWidth;
+    margin: 0 auto;
+}
+
+/*
+HAMBURGER
+*/
+
+.nav-hamburger {
+    --color: #{rgb(255, 255, 255)};
+    width: 36px;
+    height: 36px;
+    position: fixed;
+    right: 1rem;
+    top:1rem;
+    z-index: 501;
+    outline: none;
+    
+    border: none;
+    background: none;
+    cursor: pointer;
+    -webkit-appearence: none;
+    -webkit-tap-highlight-color: transparent;
+    svg {
+        width: 64px;
+        height: 48px;
+        top: -6px;
+        left: -14px;
+        stroke: var(--color);
+        stroke-width: 4px;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        fill: none;
+        display: block;
+        position: absolute;
+        path {
+            transition: stroke-dasharray var(--duration, .85s) var(--easing, ease) var(--delay, 0s), stroke-dashoffset var(--duration, .85s) var(--easing, ease) var(--delay, 0s);
+            stroke-dasharray: var(--array-1, 26px) var(--array-2, 100px);
+            stroke-dashoffset: var(--offset, 126px);
+            transform: translateZ(0);
+            &:nth-child(2) {
+                --duration: .7s;
+                --easing: ease-in;
+                --offset: 100px;
+                --array-2: 74px;
+            }
+            &:nth-child(3) {
+                --offset: 133px;
+                --array-2: 107px;
+            }
+        }
+    }
+    &.active {
+        svg {
+            path {
+                --offset: 57px;
+                &:nth-child(1),
+                &:nth-child(3) {
+                    --delay: .15s;
+                    --easing: cubic-bezier(.2, .4, .2, 1.1);
+                }
+                &:nth-child(2) {
+                    --duration: .4s;
+                    --offset: 2px;
+                    --array-1: 1px;
+                }
+                &:nth-child(3) {
+                    --offset: 58px;
+                }
+            }
+        }
+    }
+}
+
+/*
+BACK TO TOP BUTTON
+*/
+#myBtn {
+    display: none;
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    z-index: 99;   
+    border: none;
+    outline: none;
+    background-color: transparent;
+    cursor: pointer;
+    border-radius: 100%;
+    i{
+        color: black;
+        font-size: 2rem;
+        transition: .3s;
+    }
+}
+#myBtn:hover {
+    i{
+        color: map-get($colors, color1);
+    }
+    
+}
+
+/*
+LOGO
+*/
+.logo{
+    height: 6rem;
+    width: 11rem;
+    position: absolute;
+    display: flex;
+    z-index: 200;
+    left: 2rem;
+    top: .5rem;
+}
+.logo-header{
+    height: 6rem;
+    width: 6rem;
+    position: absolute;
+    z-index: 100;
+    top: 1rem;
+    left: 2rem;
+}
+.c, .d{
+    height: 7rem;
+    width: 7rem;
+    position: relative;
+    padding: 1rem;
+}
+.c{
+    background-color: transparent;
+    &:after{
+        display: block;
+        top: -.5rem;
+        left: 2.7rem;
+        position: relative;
+        content: "";
+        height: 5rem;
+        transform: rotate(45deg);
+        background-color: transparent;
+    }
+}
+.line{
+    border-radius: 50%;
+    position: absolute;
+}
+.line1{
+    background-color:map-get($colors, color7);
+    height: 5rem;
+    width: 5rem;
+    left: 0;
+}
+.line2{
+    width: 4rem;
+    height: 4rem;
+    background-color: map-get($colors, txt);
+    left: .5rem;
+    top: 1.5rem;
+}
+.line3{
+    width: 3rem;
+    height: 3rem;
+    background-color:map-get($colors, color7);
+    left: 1rem;
+    top: 2rem;
+}
+.line4{
+    width: 2rem;
+    height: 2rem;
+    background-color:map-get($colors, txt);
+    left: 1.5rem;
+    top: 2.5rem;
+}
+
+
+.d{
+    transform: rotate(-45deg);
+    left: -4.33rem;
+    background-color: transparent;
+    top: -1rem;
+}
+.line8, .line9, .line10{
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.line8{
+    width: 3rem;
+    height: 3rem;
+    background-color:map-get($colors, color7);
+    border-radius: 0 1.5rem 1.5rem 0;
+}
+.line9{
+    width: 2rem;
+    height: 2rem;
+    background-color:map-get($colors, txt);
+    border-radius: 0 1rem 1rem 0;
+}
+.line10{
+    width: 1rem;
+    height: 1rem;
+    background-color: map-get($colors, color7);
+    border-radius: 0 .5rem .5rem 0;
+}
+/*
+MENU
+*/
+#menuPrincipale{
+    position: fixed;
+    top: 0;
+}
+
+.l-main-menu.open{
+    transform: translateX(0%);
+    transition: transform 0.5s;
+
+    
+} 
+
+.l-main-menu-content{
+    width: 70vw;
+    height: 100vh;
+    background-color: map-get($colors, color6);
+    
+}
+
+
+.l-main-menu{
+    height: 100vh;
+    background-color: map-get($colors, color6-op);
+    width: 100%;
+    text-align: left;
+    font-size: 1.2rem;
+    display: flex;
+    z-index: 500;
+    transform: translateX(-100%);
+    transition: transform 0.5s;
+
+    ul{
+        display: flex;
+        flex-direction: column;
+        list-style-type: none;
+        margin: 1rem 0 0 2rem;
+        
+    }
+    li{
+        padding: .5rem 0;
+    }    
+    a{
+        position: relative;
+        text-transform: uppercase;
+        font-weight: bolder;
+        display: block;
+        padding: .5rem 0;
+        color: map-get($colors, txt);
+        transition: 0.3s;
+        &.is-active{
+            color:  map-get($colors, color1);
+        }
+
+    
+        &::after{
+            position: absolute;
+            content: "";
+            top: 85%;
+            left: 0;
+            width: 1.5rem;
+            height: 3px;
+            background: map-get($colors, color1);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s;
+        }
+
+        &:hover{
+            color:  map-get($colors, color1);
+        }
+
+        &:hover::after{
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+
+    }
+}
+
+.code-bg{
+    font-size: .7rem;
+    padding: 1rem;
+    height: 100%;
+    width: calc(100% - 2rem);
+    background: map-get($map: $gradients, $key: gradC);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+p.javascript{
+    background: map-get($colors, bg);
+}
+.language-javascript-nl{
+    margin-left: 11.4rem;
+}
+.language-javascript-ind2{
+    margin-left: .85rem
+}
+.language-javascript-ind4{
+    margin-left: 1.7rem
+}
+.language-javascript-ind8{
+    margin-left: 3.4rem
+}
+.language-javascript-ind12{
+    margin-left: 5.1rem
+}
+.language-javascript-ind17{
+    margin-left: 7.4rem
+}
+.language-javascript-ind18{
+    margin-left: 7.8rem
+}
+.content{
+    padding-top: 1rem;
+}
+
+.img{
+    padding: 0 1rem;
+}
+.inactive{
+    display : none;
+}
+.techs-links{
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2rem;
+}
+
+.links {
+    margin-right: .5rem;
+    a {
+        margin-right: .5rem;
+        color: map-get($colors, color2);
+        
+        float: right;
+} 
+
+}
+.techs{
+    margin-left: .5rem;
+    i{
+        margin-left: .5rem;
+        color: map-get($colors, color2);
+        font-size: 1.2rem;
+        float: left;
+    }
+}
+.gallery-portfolio{
+    margin: 1rem 1.2rem;
+    .skills-cloud{
+        margin-top:1rem;
+        flex: 1 auto;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-flex-flow: row wrap;
+        flex-flow: row wrap;
+        width: 100%;
+    }
+    .btn-check{
+        cursor: pointer;
+        margin:.2rem .4rem;
+        flex: 1 auto;
+        padding: .5rem .8rem;
+        text-align: center;
+        background: none;
+        font: inherit;
+        line-height: 1;
+        transition: 0.40s;
+        color:  map-get($map: $colors, $key: color2);
+        border: 1px solid map-get($map: $colors, $key: color2);
+        &:hover {
+
+            color: map-get($map: $colors, $key: txt);
+        }
+        &:focus {
+            box-shadow: inset 0 0 0 2em map-get($map: $colors, $key: color2);
+            border-color: map-get($map: $colors, $key: color2);
+            color: map-get($map: $colors, $key: txt);
+        }
+        a{
+            padding: .5rem;
+        }
+        
+    }
+
+    .btn-check.active{
+        color:  map-get($map: $colors, $key: txt);
+        background-color: map-get($map: $colors, $key: color2);
+    }
+    .img-box-portfolio{
+        padding: .5rem;
+    }
+
+    .img-hover{
+
+        overflow: hidden;
+    }
+    img{
+        height: 10rem;
+        width: 100%;
+    }
+}
+
+
+.contact-box{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    input, textarea{
+        margin: 1rem;
+        box-sizing: border-box;
+        width: calc(100% - 2rem);
+        border: 2px solid map-get($map: $colors, $key: color6);
+        color: map-get($colors, txt);
+        &:hover{
+            border-image-source: map-get($map: $gradients, $key: grad1);
+            border-width: 2px;
+            border-image-slice: 1;
+        }
+        &:focus{
+            border-image-source: map-get($map: $gradients, $key: grad2);
+            border-width: 2px;
+            border-image-slice: 1;
+        }
+    }
+    input{
+        padding-left: 1rem;
+        height: 3rem;
+    }
+    textarea{
+        
+        padding: 1rem 0 0 1rem;
+        height: 8rem;
+        height : 100%;
+    }
+}
+
+.btn-box{
+    margin: 0 0 1rem 1rem;
+    position: relative;
+
+
+}
+/*BUTTONS*/
+.btn-1{
+    transition: 0.40s;
+    color:  map-get($map: $colors, $key: color2);
+    padding: .5rem 1rem;
+    border: 1px solid map-get($map: $colors, $key: color2);
+    &:hover, &:focus {
+        box-shadow: inset 0 0 0 2em map-get($map: $colors, $key: color2);
+        border-color: map-get($map: $colors, $key: color2);
+        color: map-get($map: $colors, $key: txt);
+    }
+}
+
+
+/*ERROR SUCCES MAIL*/
+.alert-success {
+    color: #089755;
+    background: map-get($gradients, grad2);
+    border-color: #badbcc;
+}
+.alert-error {
+    color: #ff3d3d;
+    background-color: #f5e4e4;
+    border-color: #ff3d3d;
+}
+
+.alert {
+    position: relative;
+    padding: .5rem .5rem;
+    margin-bottom: 1rem;
+
+    border-radius: .25rem;
+}
+.divider-wrap{
+    text-align: center;
+    margin: 2rem 0 0;
+}
+
+.divider-odd, .divider-even{
+    margin: 0 auto;
+    width: 300px;
+    height: 2px;
+}
+.divider-odd{
+    background: map-get($gradients, grad1);
+}
+.divider-even{
+    background: map-get($gradients, grad2);
+}
+
+
+
+/*
+.fab{
+    color: map-get($colors, color1);
+
+    &:hover{
+        transform: perspective(50px) translateZ(10px);
+        color: map-get($colors, color3);
+        transition: transform 200ms linear;
+    }
+}
+.fa-solid{
+    color: map-get($colors, color1);
+
+    &:hover{
+        transform: perspective(50px) translateZ(10px);
+        color: map-get($colors, color3);
+        transition: transform 200ms linear;
+    }
+}
+*/
+
+.footer-title{
+    margin-top: .5rem;
+
+}
+.link-cv {
+    font-size : 1.5rem;
+
+    cursor: pointer;
+    color : map-get($colors, color2);
+}
+@media only screen and (min-width: map-get($breakpoints , md)){
+    header {
+        &:after{
+            transform: skewY(2deg);
+            background: map-get($map: $gradients, $key: grad1);
+        }
+    }
+
+    #myBtn {
+        i{
+            font-size: 2rem ;
+        }
+    }
+    #menuPrincipale{
+        left: 0;
+        padding: 1rem 0;
+        width:100%
+    }
+    .content {
+        margin: auto 0;
+        line-height: 1.5;
+        padding: 0 1rem;
+    }
+    .content-mid {
+        margin-top: 2rem;
+    }
+    .gallery-portfolio{
+        .btn-check{
+            margin:.3rem .6rem;
+            flex: 1 auto;
+            padding: .4rem 1.2rem;
+            line-height: 2;
+        } 
+    }
+   
+    .l-main-menu, .l-main-menu-content{
+        height: 3rem;
+        background: transparent;
+        font-size: 1.3rem ;
+        
+    }
+    .l-main-menu{
+        background: map-get($map: $gradients, $key: grad1);
+        transform: skewY(2deg);
+        padding: 0;
+        transform: translateX(0%);
+        width: 100vw;
+        a{
+            color: map-get($colors, color7);
+            &.is-active{
+                color:  map-get($colors, txt);
+            }
+            &:hover{
+                color: map-get($colors, txt);
+            }
+            
+            &::after{
+                background: map-get($colors, txt);
+            }
+        }
+        ul{
+            flex-direction: row;
+            justify-content: flex-end;
+            margin: 0 0 1rem;
+            padding-right: 2rem;
+        }
+        li{
+            padding: .5rem 0 1rem 1rem;
+        }
+    }
+    .l-main-menu-content{
+        width: $maxWidth;
+        position: relative;
+        margin: 0 auto; 
+    }
+    .btn-1{
+        cursor: pointer;
+        padding: .8rem 1rem;
+    }
+    .nav-hamburger{
+        display: none;
+    }
+    .logo{
+        display: none;
+    }
+    .code-bg{
+        padding-left: 1rem;
+    }
+    .contact-box{
+        input, textarea{
+            width: calc(100% - 2rem);
+            
+        }
+        textarea{
+            height: 100%;
+        }
+
+    }
+    .new-dev {
+        margin-top: 1rem;
+    }
+
+    h4{
+        margin: 2.5rem 0 1rem;
+    }
+}
+@media only screen and (min-width: map-get($breakpoints , lg)){
+    .l-main-menu{
+        font-size:1.5rem;
+        li{
+            padding-left: 2rem;
+        }
+    }
+    .code-bg{
+        padding-left: 2rem;
+    }
+}
+
+

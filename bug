@@ -1,0 +1,149 @@
+'use strict'
+const { src, dest, gulp, series, parallel } = require('gulp');
+const sass = require('gulp-sass')(require('sass'));
+const path = require('path');
+const javascriptObfuscator = require('gulp-javascript-obfuscator');
+const browserSync = require('browser-sync').create();
+const gulpSquoosh = require("gulp-squoosh");
+const gulpUglify = require('gulp-uglify');
+const concat = require('gulp-concat');
+const gulpCache = require("gulp-cache");
+const gulpUglifyCss = require('gulp-uglifycss');
+const chokidar = require('chokidar');
+const jshint = require('gulp-jshint');
+const csso = require('gulp-csso');
+const clean = require('gulp-clean');
+
+
+
+
+//const help = require('gulp-help-four');
+//help(gulp, ['description']);
+
+const SOURCE = './src/assets'
+const DEST = './dist'
+const BUILD = './build'
+
+
+
+
+
+/*
+ *
+ * COMPILE SASS
+ */
+function scss() {
+    return src(`${SOURCE}/scss/**/*.scss`)
+        .pipe(sass(
+            {outputStyle: 'compressed'},
+            {errorLogToConsole: true}
+        ))
+        .pipe(dest(`${DEST}/css`));
+
+}
+
+exports.scss = scss;
+
+
+
+function copyFonts() {
+    src(`${SOURCE}/assets/fonts/**/*.*`)
+        .pipe(gulp.dest(`${BUILD}/fonts`))
+        .pipe(gulp.dest(`${DEST}/fonts`));
+
+}
+
+function deleteFonts() {
+    return gulp.src(`${SOURCE}/assets/fonts/**/*.*`, {read: false})
+        .pipe(clean({force: true}));
+}
+
+module.exports = {
+    fonts : series(copyFonts, deleteFonts)
+}
+
+function css() {
+    return src(`${DEST}/css/*.css`)
+        .pipe(csso())
+        .pipe(dest(`${BUILD}/css`))
+}
+
+function js() {
+    return src([`${DEST}/js/libs/*.js`, `${DEST}/js/main.js`])
+        .pipe(concat('main.js'))
+        .pipe(gulpUglify({
+            mangle: {
+                toplevel: true
+            }
+        }))
+        .pipe(javascriptObfuscator())
+        .pipe(gulpUglify())
+        .pipe(dest(`${BUILD}/js`))
+}
+
+function getResizeByDirectory(dir) {
+    let tmp = path.dirname(dir).split('/');
+    let size = tmp[tmp.length - 1];
+    if(size != undefined)
+    {
+        tmp = size.split('x');
+        if(Number.isInteger(parseInt(tmp[0])) && Number.isInteger(parseInt(tmp[1])))
+        {
+            return {
+                resize: {
+                    width: parseInt(tmp[0]),
+                    height: parseInt(tmp[1])
+                }
+            }
+        }
+        else if(Number.isInteger(parseInt(size)))
+        {
+            return {
+                resize: {
+                    width: parseInt(size)
+                }
+            }
+        }
+    }
+    return {};
+}
+
+function img() {
+    return src(`${DEST}/img/**`)
+        .pipe(
+            gulpSquoosh(({ width, height, size, filePath }) => ({
+                preprocessOptions: (getResizeByDirectory(filePath)),
+                encodeOptions: {
+                    // jxl: {},
+                    avif: {},
+                    webp: {},
+                    // wp2: {}
+                    ...(path.extname(filePath) === ".png"
+                        ? { oxipng: {} }
+                        : { mozjpeg: {} }),
+                },
+            }))
+        )
+        .pipe(dest(`${BUILD}/img`));
+}
+
+module.exports = {
+    build : parallel(js, css, img)
+}
+
+
+
+gulp.task('copyFonts', ['deleteFonts'], function() {
+    return gulp.src(`${SOURCE}/assets/fonts/**/*.*`)
+        .pipe(gulp.dest(`${BUILD}/fonts`))
+        .pipe(gulp.dest(`${DEST}/fonts`));
+});
+
+gulp.task('deleteFonts', function(done){
+    return gulp.src(
+        `${ SOURCE }/assets/fonts/**/*.*`,
+        { read: false },
+        done
+    )
+    .pipe(clean({force: true}));
+})

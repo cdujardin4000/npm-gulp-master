@@ -1,0 +1,33 @@
+$colors: (
+
+    color1      : #ffdb3d,
+    color2      : #ff3d77,
+    color3      : #f933e8,
+    color4      : #5f19dd,
+    color5      : #ff5101,
+    color6      : #303030,
+    color6-op   : rgba(5,6,26,0.37),
+    color7      : #000000,
+    txt         : #ebebeb,
+    title       : #ffdb3d,
+    bg          : #141414,  
+);
+
+$gradients: (
+    
+    grad1: linear-gradient(-70deg, map-get($colors, color1), map-get($colors, color2), map-get($colors, color3), map-get($colors, color4)),
+    grad2: linear-gradient(50deg, map-get($colors, color1), map-get($colors, color2), map-get($colors, color3), map-get($colors, color4)),
+    grad3: linear-gradient(to top, map-get($colors, color1), map-get($colors, color2), map-get($colors, color3), map-get($colors, color4)),
+    grad4: linear-gradient(50deg, map-get($colors, color1), map-get($colors, color2), map-get($colors, color3), map-get($colors, color4)),
+    grad5: linear-gradient(160deg , map-get($colors, color1), map-get($colors, color2), map-get($colors, color3), map-get($colors, color4)),
+    gradC: linear-gradient(70deg, map-get($colors, color1) 20%, map-get($colors, color2) 45%, map-get($colors, color3) 70%, map-get($colors, color4)),
+);
+
+
+/*taille maximale pour le contenu en desktop*/
+$maxWidth : 980px;
+
+/*fonts*/
+$fontPrimary:   'Monserrat', sans-serif;   
+$fontSecondary: 'Mukta', sans-serif;
+
